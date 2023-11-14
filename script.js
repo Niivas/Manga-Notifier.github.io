@@ -1,11 +1,11 @@
 async function fetchAndLogJson(url) {
-    const response = await fetch(url);
-    mangas = await response.json();
-    return mangas;
+  const response = await fetch(url);
+  mangas = await response.json();
+  return mangas;
 }
 
 function formatManga(mangaName, mangaDetails) {
-    return `
+  return `
     <div class="col" ontouchstart="this.classList.toggle('hover');">
         <div class="container">
             <div class="front" style="background-image: url(${mangaDetails.image})">
@@ -24,14 +24,31 @@ function formatManga(mangaName, mangaDetails) {
     </div>`;
 }
 
-fetchAndLogJson("https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.io/main/assets/mangas.json")
-    .then(mangas => {
-        let totalHtml = "";
-        for (const [mangaName, mangaDetails] of Object.entries(mangas)) {
-            totalHtml += formatManga(mangaName, mangaDetails);
-        }
-        document.getElementById("mangas").innerHTML = totalHtml;
-    })
-    .catch(error => {
-        console.error(error);
-    });
+fetchAndLogJson(
+  "https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.io/main/assets/mangas.json"
+)
+  .then((mangas) => {
+    const ordered = Object.keys(mangas)
+      .sort()
+      .reduce((obj, key) => {
+        obj[key] = mangas[key];
+        return obj;
+      }, {});
+    let totalHtml = "";
+    for (const [mangaName, mangaDetails] of Object.entries(ordered)) {
+      totalHtml += formatManga(mangaName, mangaDetails);
+    }
+    document.getElementById("mangas").innerHTML = totalHtml;
+  })
+
+  .catch((error) => {
+    console.error(error);
+  });
+
+  $(".search-bar input")
+  .focus(function () {
+    $(".header").addClass("wide");
+  })
+  .blur(function () {
+    $(".header").removeClass("wide");
+  });
