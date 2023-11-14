@@ -1,5 +1,3 @@
-let mangas;
-
 async function fetchAndLogJson(url) {
     const response = await fetch(url);
     mangas = await response.json();
@@ -32,7 +30,6 @@ fetchAndLogJson("https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.
         for (const [mangaName, mangaDetails] of Object.entries(mangas)) {
             totalHtml += formatManga(mangaName, mangaDetails);
         }
-        console.log(totalHtml);
         document.getElementById("mangas").innerHTML = totalHtml;
     })
     .catch(error => {
