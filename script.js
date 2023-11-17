@@ -18,11 +18,13 @@ function formatManga(mangaName, mangaDetails) {
                 <div class="manga-inner">
                     <p>Latest release: <br/>${mangaDetails.latestRelease}</p>
                     <a href="${mangaDetails.latestChapterLink}" target="_blank"><button class="manga-button manga-button-extra">Read Now</button></a>
+
                 </div>
             </div>
         </div>
     </div>`;
 }
+
 
 fetchAndLogJson(
   "https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.io/main/assets/mangas.json"
@@ -44,3 +46,4 @@ fetchAndLogJson(
   .catch((error) => {
     console.error(error);
   });
+
