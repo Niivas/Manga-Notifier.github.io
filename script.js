@@ -6,18 +6,18 @@ async function fetchAndLogJson(url) {
 
 function formatManga(mangaName, mangaDetails) {
   return `
-    <div class="col" ontouchstart="this.classList.toggle('hover');">
-        <div class="container">
-            <div class="front" style="background-image: url(${mangaDetails.image})">
-                <div class="inner">
+    <div class="manga-col" ontouchstart="this.classList.toggle('hover');">
+        <div class="manga-container">
+            <div class="manga-front" style="background-image: url(${mangaDetails.image})">
+                <div class="manga-inner">
                     <p>${mangaName}</p>
                         <span>Chapter-${mangaDetails.latestChapter}</span>
                 </div>
             </div>
-            <div class="back">
-                <div class="inner">
+            <div class="manga-back">
+                <div class="manga-inner">
                     <p>Latest release: <br/>${mangaDetails.latestRelease}</p>
-                    <a href="${mangaDetails.latestChapterLink}" target="_blank"><button class="custom-btn btn-rm">Read Now</button></a>
+                    <a href="${mangaDetails.latestChapterLink}" target="_blank"><button class="manga-button manga-button-extra">Read Now</button></a>
                 </div>
             </div>
         </div>
@@ -43,12 +43,4 @@ fetchAndLogJson(
 
   .catch((error) => {
     console.error(error);
-  });
-
-  $(".search-bar input")
-  .focus(function () {
-    $(".header").addClass("wide");
-  })
-  .blur(function () {
-    $(".header").removeClass("wide");
   });
