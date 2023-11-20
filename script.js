@@ -4,6 +4,9 @@ async function fetchAndLogJson(url) {
   return mangas;
 }
 
+let mangaka;
+let totalHTML = "";
+
 function formatManga(mangaName, mangaDetails) {
   return `
     <div class="manga-col" ontouchstart="this.classList.toggle('hover');">
@@ -36,14 +39,30 @@ fetchAndLogJson(
         obj[key] = mangas[key];
         return obj;
       }, {});
-    let totalHtml = "";
+    mangaka = ordered
     for (const [mangaName, mangaDetails] of Object.entries(ordered)) {
-      totalHtml += formatManga(mangaName, mangaDetails);
+      totalHTML += formatManga(mangaName, mangaDetails);
     }
-    document.getElementById("mangas").innerHTML = totalHtml;
+    document.getElementById("mangas").innerHTML = totalHTML;
   })
-
   .catch((error) => {
     console.error(error);
   });
 
+function searchMangaByName() {
+  var input, enteredMangaName;
+  input = document.getElementById("myInput");
+  enteredMangaName = input.value.toUpperCase();
+  if(enteredMangaName === null || enteredMangaName === ""){
+    document.getElementById("mangas").innerHTML = totalHTML;
+    return;
+  }
+  resultHTML = '';
+  for (const [name, mangaDetails] of Object.entries(mangaka)) {
+    mangaName = name.toUpperCase();
+    if(mangaName.startsWith(enteredMangaName)){
+      resultHTML += formatManga(name, mangaDetails);
+    }
+  }
+  document.getElementById("mangas").innerHTML = resultHTML;
+}
