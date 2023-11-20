@@ -45,24 +45,22 @@ fetchAndLogJson(
     }
     document.getElementById("mangas").innerHTML = totalHTML;
   })
-
   .catch((error) => {
     console.error(error);
   });
 
 function searchMangaByName() {
-  var input, filter, ul, li, a, i, mangaName;
+  var input, enteredMangaName;
   input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  if(filter === null || filter === ""){
-    console.log("-->", filter);
+  enteredMangaName = input.value.toUpperCase();
+  if(enteredMangaName === null || enteredMangaName === ""){
     document.getElementById("mangas").innerHTML = totalHTML;
     return;
   }
   resultHTML = '';
   for (const [name, mangaDetails] of Object.entries(mangaka)) {
     mangaName = name.toUpperCase();
-    if(mangaName.startsWith(filter)){
+    if(mangaName.startsWith(enteredMangaName)){
       resultHTML += formatManga(name, mangaDetails);
     }
   }
