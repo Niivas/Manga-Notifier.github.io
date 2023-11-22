@@ -1,4 +1,6 @@
-
+body {
+  background: linear-gradient(#48cae4, #caf0f8);
+}
 * {
   margin: 0;
   padding: 0;
