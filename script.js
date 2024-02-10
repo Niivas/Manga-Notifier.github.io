@@ -28,9 +28,8 @@ function formatManga(mangaName, mangaDetails) {
     </div>`;
 }
 
-
 fetchAndLogJson(
-  "https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.io/main/assets/mangas.json"
+  "https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.io/main/assets/mangas.json",
 )
   .then((mangas) => {
     const ordered = Object.keys(mangas)
@@ -39,7 +38,7 @@ fetchAndLogJson(
         obj[key] = mangas[key];
         return obj;
       }, {});
-    mangaka = ordered
+    mangaka = ordered;
     for (const [mangaName, mangaDetails] of Object.entries(ordered)) {
       totalHTML += formatManga(mangaName, mangaDetails);
     }
@@ -50,17 +49,17 @@ fetchAndLogJson(
   });
 
 function searchMangaByName() {
-  var input, enteredMangaName;
+  let input, enteredMangaName;
   input = document.getElementById("myInput");
   enteredMangaName = input.value.toUpperCase();
-  if(enteredMangaName === null || enteredMangaName === ""){
+  if (enteredMangaName === null || enteredMangaName === "") {
     document.getElementById("mangas").innerHTML = totalHTML;
     return;
   }
-  resultHTML = '';
+  resultHTML = "";
   for (const [name, mangaDetails] of Object.entries(mangaka)) {
     mangaName = name.toUpperCase();
-    if(mangaName.startsWith(enteredMangaName)){
+    if (mangaName.startsWith(enteredMangaName)) {
       resultHTML += formatManga(name, mangaDetails);
     }
   }
