@@ -1,13 +1,13 @@
-async function fetchAndLogJson(url) {
-  const response = await fetch(url);
-  mangas = await response.json();
-  return mangas;
+async function fetchAndLogJson (url) {
+  const response = await fetch(url)
+  mangas = await response.json()
+  return mangas
 }
 
-let mangaka;
-let totalHTML = "";
+let mangaka
+let totalHTML = ''
 
-function formatManga(mangaName, mangaDetails) {
+function formatManga (mangaName, mangaDetails) {
   return `
     <div class="manga-col" ontouchstart="this.classList.toggle('hover');">
         <div class="manga-container">
@@ -25,43 +25,43 @@ function formatManga(mangaName, mangaDetails) {
                 </div>
             </div>
         </div>
-    </div>`;
+    </div>`
 }
 
 fetchAndLogJson(
-  "https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.io/main/assets/mangas.json",
+  'https://raw.githubusercontent.com/Niivas/Manga-Notifier.github.io/main/assets/mangas.json'
 )
   .then((mangas) => {
     const ordered = Object.keys(mangas)
       .sort()
       .reduce((obj, key) => {
-        obj[key] = mangas[key];
-        return obj;
-      }, {});
-    mangaka = ordered;
+        obj[key] = mangas[key]
+        return obj
+      }, {})
+    mangaka = ordered
     for (const [mangaName, mangaDetails] of Object.entries(ordered)) {
-      totalHTML += formatManga(mangaName, mangaDetails);
+      totalHTML += formatManga(mangaName, mangaDetails)
     }
-    document.getElementById("mangas").innerHTML = totalHTML;
+    document.getElementById('mangas').innerHTML = totalHTML
   })
   .catch((error) => {
-    console.error(error);
-  });
+    console.error(error)
+  })
 
-function searchMangaByName() {
-  let input, enteredMangaName;
-  input = document.getElementById("myInput");
-  enteredMangaName = input.value.toUpperCase();
-  if (enteredMangaName === null || enteredMangaName === "") {
-    document.getElementById("mangas").innerHTML = totalHTML;
-    return;
+function searchMangaByName () {
+  let input, enteredMangaName
+  input = document.getElementById('myInput')
+  enteredMangaName = input.value.toUpperCase()
+  if (enteredMangaName === null || enteredMangaName === '') {
+    document.getElementById('mangas').innerHTML = totalHTML
+    return
   }
-  resultHTML = "";
+  resultHTML = ''
   for (const [name, mangaDetails] of Object.entries(mangaka)) {
-    mangaName = name.toUpperCase();
+    mangaName = name.toUpperCase()
     if (mangaName.startsWith(enteredMangaName)) {
-      resultHTML += formatManga(name, mangaDetails);
+      resultHTML += formatManga(name, mangaDetails)
     }
   }
-  document.getElementById("mangas").innerHTML = resultHTML;
+  document.getElementById('mangas').innerHTML = resultHTML
 }
